@@ -1,14 +1,22 @@
 import React from 'react'
 
-const Todo = function ({name, completed, id, clickHandler}) {
+const Todo = function ({name, completed, id, deleteHandler, strikeHandler}) {
   const handleClick = event => {
-    console.log(id)
-    return clickHandler(id)
+    return deleteHandler(id)
+  }
+
+  const handleStrike = event => {
+    return strikeHandler(id, completed)
   }
 
   return (
-    <li onClick={handleClick} style={{textDecoration: completed ? 'line-through' : 'none'}}>
-      {name}
+    <li style={{textDecoration: completed ? 'line-through' : 'none'}}>
+      <span onClick={handleStrike}>
+        {name}
+      </span>
+      <span onClick={handleClick} >
+        &nbsp; <a href='#'>[x]</a>
+      </span>
     </li>
   )
 }

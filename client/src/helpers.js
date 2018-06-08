@@ -17,7 +17,7 @@ export function handleErrors (resp) {
 // Encapsulates stringification, header construction and error handling
 export async function apirequest (object, APIURL, method) {
   return new Promise((resolve) => {
-    const params = (method === 'post' || 'update') // add body and headers for posts/updates
+    const params = (method === 'post' || 'put') // add body and headers for posts/updates
       ? {
         method: method,
         headers: new window.Headers({'Content-Type': 'application/json'}),
@@ -29,6 +29,6 @@ export async function apirequest (object, APIURL, method) {
 
     window.fetch(APIURL, params)
       .then(resp => handleErrors(resp))
-      .then(newTodo => resolve(newTodo))
+      .then(data => resolve(data))
   })
 }
