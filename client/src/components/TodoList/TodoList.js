@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import Todo from './Todo'
 import TodoForm from './TodoForm'
-import { handleErrors, postJson } from '../../helpers'
+import { handleErrors, apirequest } from '../../helpers'
 
 const APIURL = '/api/todos'
 
@@ -19,7 +19,7 @@ export default class ToDoList extends Component {
   }
 
   addTodo = (todoName) => {
-    postJson({name: todoName}, APIURL)
+    apirequest({name: todoName}, APIURL, 'post')
       .then(newTodo => {
         this.setState((prevState) => {
           return {todos: [...prevState.todos, newTodo]}
@@ -27,9 +27,18 @@ export default class ToDoList extends Component {
       })
   }
 
+  deleteTodo = (todoId) => {
+    apirequest({}, `${APIURL}/${todoId}`, 'delete')
+      .then(newTodo => {
+        this.setState((prevState) => {
+          return {todos: [...prevState.todos.filter(todo => todo._id !== todoId)]}
+        })
+      })
+  }
+
   render () {
     const todos = this.state.todos.map(({_id, ...others}) => {
-      return <Todo key={_id} {...others} />
+      return <Todo key={_id} id={_id} {...others} clickHandler={this.deleteTodo} />
     })
 
     return (

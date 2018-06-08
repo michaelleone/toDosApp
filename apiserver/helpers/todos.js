@@ -42,8 +42,8 @@ exports.updateTodo = function (req, res) {
 
 exports.deleteTodo = function (req, res) {
   db.Todo.remove({_id: req.params.todoId})
-    .then(function () {
-      res.json({message: 'We deleted it!'})
+    .then(function (resp) {
+      return resp.result['n'] ? res.json({message: 'We deleted it!'}) : res.json({message: 'Already deleted!'})
     })
     .catch(function (err) {
       res.send(err)
