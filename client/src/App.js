@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import './App.css'
-import ToDoList from './TodoList'
+import ToDoList from './components/TodoList/TodoList'
 
 export default class App extends Component {
   render () {

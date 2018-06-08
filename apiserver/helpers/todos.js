@@ -1,5 +1,4 @@
 var db = require('../models')
-// import { Todo } from '../models'
 
 exports.getTodos = function (req, res) {
   db.Todo.find()
